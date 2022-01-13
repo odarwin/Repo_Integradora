@@ -14,6 +14,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style_cargar.css' %}">
 
+
 </head>
 
 <body>
@@ -39,11 +40,16 @@
                 <input type="submit" class="fadeIn fourth" value="Log In"> -->
                 <label for="">Seleccionar un archivo desde el ordenador</label>
                 <br>
-                <form name="subida-imagenes" type="POST" enctype="multipart/formdata">
-                    <input type="file" name="imagen1" />
+                <form name="subida-imagenes" enctype="multipart/formdata">
+                    <input id="nombreArchivo" type="file" name="imagen1" />
                     <br>
                     <br>
-                    <input type="submit" name="subir-imagen" value="Diagnosticar Imagen" />
+                    <!-- <input type="submit" name="subir-imagen" href="{% url 'resultado' %}" value="Diagnosticar Imagen" /> -->
+                    <a class="nav-link" type="submit" name="subir-imagen" href="{% url 'resultado' %}"
+                        value="Diagnosticar Imagen">Diagnosticar Imagen</a>
+
+                    <!-- <a class="nav-link" href="{% url 'cargarImagen' %}">Iniciar Sesion</a> -->
+
                 </form>
 
             </form>
@@ -54,9 +60,9 @@
 
 </body>
 {% bootstrap_javascript jquery='full' %}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+<!-- <script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script> -->
+<!-- // js/project/cargarImagen.js' %} -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script>
+<script type="text/javascript" src="{% static 'js/project/cargarImagen.js' %}"></script>
 
 </html>

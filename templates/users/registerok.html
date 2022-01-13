@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Resultados de la prediccion de imagen</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/resultado.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal_succ.css' %}">
+</head>
+
+<body>
+
+    <main role="main" class="container">
+        <div class="starter-template">
+            <h1>Tu usuario ha sido creado con exito</h1>
+            <p class="lead">Si la página no es redirigida en 5 segundos pulsa <a href="{% url 'users:login' %}">aquí</a>
+            </p>
+        </div>
+    </main>
+    <script>
+        setTimeout(function () {
+            window.location.replace("{% url 'users:login' %}");
+        }, 5000);
+    </script>
+
+</body>
+{% bootstrap_javascript jquery='full' %}
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+</html>

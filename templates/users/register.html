@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Resultados de la prediccion de imagen</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylelogin.css' %}">
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+            <div class="fadeIn first">
+                <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
+            </div>
+
+            <form class="form-signin" method="POST">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 font-weight-normal">Registro de usuario</h1>
+
+                <label for="id_nombre" class="sr-only">Nombre</label>
+                <input type="text" name="firstName" id="id_nombre" class="form-control" placeholder="Nombre">
+
+                <label for="id_apellido" class="sr-only">Apellido</label>
+                <input type="text" name="lastName" id="id_apellido" class="form-control" placeholder="Apellido">
+
+                <label for="id_cedula" class="sr-only">Cedula</label>
+                <input type="text" name="CI" id="id_cedula" class="form-control " placeholder="Cedula">
+
+                <label for="id_email" class="sr-only">Email</label>
+                <input type="text" name="email" id="id_email" class="form-control" placeholder="Email">
+
+                <label for="id_username" class="sr-only">Nombre de usuario</label>
+                <input type="text" name="username" id="id_username" class="form-control"
+                    placeholder="Nombre de usuario">
+
+                <label for="inputPassword" class="sr-only">Contraseña</label>
+                <input type="text" name="password" id="id_password" class="form-control" placeholder="Contraseña">
+
+                <label for="inputPassword" class="sr-only">Repetir contraseña</label>
+                <input type="text" name="password_confirmation" id="id_password_confirmation" class="form-control"
+                    placeholder="Repetir contraseña" required>
+                <div class="checkbox mb-3"></div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
+                {% if form.errors %}
+                {% for field in form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </form>
+        </div>
+    </div>
+
+</body>
+{% bootstrap_javascript jquery='full' %}
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+</html>
