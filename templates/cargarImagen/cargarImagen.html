@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!------ Include the above in your HEAD tag ---------->
+    <!-- <link rel="stylesheet" href="../../css/style_cargar.css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style_cargar.css' %}">
+
+</head>
+
+<body>
+
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+            <div style="background-color:#1190cf ; color: white;">
+                <p>Hola Medico</p>
+            </div>
+            <div class=" fadeIn first">
+                <!-- <img src="../../images/cerebro.png" id="icon" alt="User Icon" /> -->
+                <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
+
+            </div>
+
+
+            <!-- Login Form -->
+            <form>
+                <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                <input type="submit" class="fadeIn fourth" value="Log In"> -->
+                <label for="">Seleccionar un archivo desde el ordenador</label>
+                <br>
+                <form name="subida-imagenes" type="POST" enctype="multipart/formdata">
+                    <input type="file" name="imagen1" />
+                    <br>
+                    <br>
+                    <input type="submit" name="subir-imagen" value="Diagnosticar Imagen" />
+                </form>
+
+            </form>
+
+
+        </div>
+    </div>
+
+</body>
+{% bootstrap_javascript jquery='full' %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</html>
