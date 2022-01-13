@@ -1,203 +1,265 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<title>Resultados de la prediccion de imagen</title>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Resultados de la prediccion de imagen</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<link
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			rel="stylesheet"
+			id="bootstrap-css"
+		/>
+		{% load bootstrap4 %} {% bootstrap_css %} {% load static %}
+		<link rel="stylesheet" href="{% static 'css/resultado.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/modal_succ.css' %}" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'css/papaya.css' %}"
+		/>
+		<script
+			type="text/javascript"
+			src="{% static 'js/build/papaya.js' %}"
+		></script>
+		<script type="text/javascript">
+			var params = [];
+			params["worldSpace"] = true;
+			params["images"] = ["{% static 'js/build/data/3023.nii.gz' %}"];
+			// params["surfaces"] = ["data/mySurface.surf.gii"];
+			params["{% static 'js/build/data/3023.nii.gz' %}"] = { min: 4, max: 10 };
+		</script>
+	</head>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
-        id="bootstrap-css">
-    {% load bootstrap4 %}
-    {% bootstrap_css %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/resultado.css' %}">
-    <link rel="stylesheet" href="{% static 'css/modal_succ.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/papaya.css' %}" />
-    <script type="text/javascript" src="{% static 'js/build/papaya.js' %}"></script>
-    <script type="text/javascript">
-        var params = [];
-        params["worldSpace"] = true;
-        params["images"] = ["{% static 'js/build/data/3023.nii.gz' %}"];
-        // params["surfaces"] = ["data/mySurface.surf.gii"];
-        params["{% static 'js/build/data/3023.nii.gz' %}"] = { "min": 4, "max": 10 };
-    </script>
+	<body>
+		<div class="wrapper fadeInDown">
+			<div id="formContent">
+				<div style="background-color: #1190cf; color: white">
+					<p>Hola Médico</p>
+				</div>
+				<div class="fadeIn first" row>
+					<div>
+						<label for="">Resultados del diagnóstico</label>
+					</div>
+					<div>
+						<img
+							src="{% static 'images/cerebro.png' %}"
+							id="icon"
+							alt="User Icon"
+						/>
+					</div>
+				</div>
 
-</head>
+				<!-- Login Form -->
+				<form>
+					<div class="container">
+						<div class="row">
+							<div class="form-group col-6 d-flex flex-column">
+								<div class="align-self-start">
+									<label for="nombreImagen">Nombre de la imagen:</label>
+								</div>
+								<div class="">
+									<input
+										type="text"
+										id="imagenPaciente"
+										name="Imagen de Paciente"
+										value="3006.nii.gz"
+										readonly
+									/>
+								</div>
 
-<body>
-
-
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-
-            <div style="background-color:#1190cf ; color: white;">
-                <p>Hola Medico</p>
-            </div>
-            <div class=" fadeIn first" row>
-                <div>
-                    <label for="">Resultados del diagnostico</label>
-                </div>
-                <div>
-                    <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
-                </div>
-            </div>
-
-
-            <!-- Login Form -->
-            <form>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <div class="col -4">
-                            <label for="nombreImagen">Nombre de la imagen:</label>
-                        </div>
-                        <div class="col -8">
-                            <input type="text" id="imagenPaciente" name="Imagen de Paciente" value="Paciente_Alex.nii"
-                                readonly>
-                        </div>
-
-                    </div>
-                    <!-- aqui va el graficado -->
-                    <div class="form-group col-6">
-                        <div class="col-11 papaya " data-params="params" style="height: 100%;">
-                            <!-- <div class="papaya" data-params="params"></div> -->
-                            <!-- <div class="papaya" data-params="params"></div> -->
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form-group row col-6 " style="max-width: 50%;" id="resultado">
-                    <div class="col-4">
-                        <label for="Resultado">Resultado:</label>
-
-                    </div>
-                    <div class="col-8">
-                        <textarea name="resultados" rows="10" cols="40"
-                            readonly>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
-
-                    </div>
-                </div>
-                <div class="form-group row col-6 " style="max-width: 50%;" id="btnAceptar">
-                    <div class="col -4">
-                        <a href="#ModalAceptar" role="button" class="btn btn-success btn-large btn-primary"
-                            data-toggle="modal">Aceptar Pronostico</a>
-                    </div>
-                    <div class="col-4">
-                        <a href="#ModalRechazar" role="button" class="btn btn-danger btn-large btn-primary"
-                            data-toggle="modal">Rechazar Pronostico</a>
-
-                    </div>
-                </div>
-
-            </form>
-
-
-        </div>
-    </div>
-
-</body>
-{% bootstrap_javascript jquery='full' %}
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
+								<div class="form-group" id="resultado">
+									<div class="">
+										<label for="Resultado">Resultado: </label>
+									</div>
+									<div class="">
+										<textarea
+											name="resultados"
+											rows="2"
+											cols="40"
+											readonly
+										></textarea>
+									</div>
+								</div>
+								<div
+									class="form-group d-flex justify-content-around"
+									id="btnAceptar"
+								>
+									<div>
+										<a
+											href="#ModalAceptar"
+											role="button"
+											class="btn btn-success btn-large btn-primary"
+											data-toggle="modal"
+											>Aceptar Pronóstico</a
+										>
+									</div>
+									<div>
+										<a
+											href="#ModalRechazar"
+											role="button"
+											class="btn btn-danger btn-large btn-primary"
+											data-toggle="modal"
+											>Rechazar Pronóstico</a
+										>
+									</div>
+								</div>
+							</div>
+							<!-- aqui va el graficado -->
+							<div class="form-group col-6">
+								<div
+									class="col-11 papaya"
+									data-params="params"
+									style="height: 100%"
+								>
+									<!-- <div class="papaya" data-params="params"></div> -->
+									<!-- <div class="papaya" data-params="params"></div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+	{% bootstrap_javascript jquery='full' %}
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </html>
-
 
 <!-- modales -->
 <div class="container">
-    <div class="row">
-        <!-- ModalAceptar -->
-        <div id="ModalAceptar" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Resultado</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Seguro que quiere aceptar el pronostico?</p>
-                        <!-- <p class="text-warning"><small>Si lo borras, nunca podrás recuperarlo.</small></p> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-toggle="modal" href="#modalExito">Si</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+	<div class="row">
+		<!-- ModalAceptar -->
+		<div id="ModalAceptar" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-hidden="true"
+						>
+							&times;
+						</button>
+						<h4 class="modal-title">Resultado</h4>
+					</div>
+					<div class="modal-body">
+						<p>¿Seguro que quiere aceptar el pronostico?</p>
+						<!-- <p class="text-warning"><small>Si lo borras, nunca podrás recuperarlo.</small></p> -->
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-success"
+							data-toggle="modal"
+							href="#modalExito"
+						>
+							Si
+						</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">
+							No
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div id="ModalRechazar" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-hidden="true"
+						>
+							&times;
+						</button>
+						<h4 class="modal-title">Resultado</h4>
+					</div>
+					<div class="modal-body">
+						<p>¿Seguro que quiere rechazar el pronostico?</p>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-success"
+							data-toggle="modal"
+							href="#modalRechazo"
+						>
+							Si
+						</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">
+							No
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div id="ModalRechazar" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Resultado</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Seguro que quiere rechazar el pronostico?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-toggle="modal"
-                            href="#modalRechazo">Si</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+		<!-- <a class="btn btn-primary" data-toggle="modal" href="#modalExito">Exito</a> -->
+		<div class="modal fade" id="modalExito" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-label=""
+						>
+							<span>×</span>
+						</button>
+					</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <a class="btn btn-primary" data-toggle="modal" href="#modalExito">Exito</a> -->
-        <div class="modal fade" id="modalExito" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="thank-you-pop">
-                            <img src="{% static 'images/exito.png' %}" alt="">
-                            <h1>Prediccion Aprobada</h1>
-                            <!-- <p>Your submission is received and we will contact you soon</p>
+					<div class="modal-body">
+						<div class="thank-you-pop">
+							<img src="{% static 'images/exito.png' %}" alt="" />
+							<h1>Prediccion Aprobada</h1>
+							<!-- <p>Your submission is received and we will contact you soon</p>
                             <h3 class="cupon-pop">Your Id: <span>12345</span></h3> -->
-                            <button type="button" class="btn btn-success">OK</button>
+							<button type="button" class="btn btn-success">OK</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modalRechazo" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-label=""
+						>
+							<span>×</span>
+						</button>
+					</div>
 
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="modalRechazo" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="thank-you-pop">
-                            <img src="{% static 'images/rechazo.png' %}" alt="">
-                            <h1>Prediccion Rechazada</h1>
-                            <!-- <p>Your submission is received and we will contact you soon</p>
+					<div class="modal-body">
+						<div class="thank-you-pop">
+							<img src="{% static 'images/rechazo.png' %}" alt="" />
+							<h1>Prediccion Rechazada</h1>
+							<!-- <p>Your submission is received and we will contact you soon</p>
                             <h3 class="cupon-pop">Your Id: <span>12345</span></h3> -->
-                            <button type="button" class="btn btn-danger">Cerrar</button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+							<button type="button" class="btn btn-danger">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
