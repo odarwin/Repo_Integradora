@@ -24,21 +24,23 @@
                 <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
             </div>
             <form>
-                <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In"> -->
+                {% if user.is_authenticated %}
                 <label for="">Seleccionar un archivo desde el ordenador</label>
                 <br />
                 <form>
-                    <input type="file" name="imagen1" />
+                    {% csrf_token %}
+                    <input type="hidden" name="csrfmiddlewaretoken" value="Sdf67Ghbsdf786afdsdf">
+                    <input type="file" id="rutaImagen" name="rutaImagen" />
                     <br />
                     <br />
-                    <a type="button" name="subir-imagen" class="mb-3 btn btn-primary" href="./resultado">
-                        Diagnosticar Imagen
+                    <a type="button" id="btnDiagnosticar" name="subir-imagen" class="mb-3 btn btn-primary"> Diagnosticar
+                        Imagen
                     </a>
+
                 </form>
+                {% endif %}
 
-
+            </form>
 
         </div>
     </div>
@@ -48,6 +50,6 @@
 <!-- <script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script> -->
 <!-- // js/project/cargarImagen.js' %} -->
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script>
-<script type="text/javascript" src="{% static 'js/project/cargarImagen.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/project/cargarImagen1.js' %}"></script>
 
 </html>

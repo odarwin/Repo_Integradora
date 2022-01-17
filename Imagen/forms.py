@@ -8,10 +8,13 @@ from Imagen.models import Imagen
 from django.contrib.auth.models import User
 
 class CreateImagenForm(forms.ModelForm):
-    ruta_imagen=forms.CharField(max_length=400)
+    title=forms.CharField(max_length=100,widget=forms.TextInput())
+    pathImage=forms.CharField(max_length=400,widget=forms.TextInput())
+    status=forms.CharField(max_length=1,widget=forms.TextInput())
+    description=forms.CharField(max_length=4000,widget=forms.TextInput())
 
-class Meta:
-    # user = User.objects.create_user(data['username'],data['email'],data['password'])
-    model=Imagen
-    fields=('user','profile','title','pathImage','status')
+    class Meta:
+        # user = User.objects.create_user(data['username'],data['email'],data['password'])
+        model=Imagen
+        fields=('user','profile','title','pathImage','status','description')
 

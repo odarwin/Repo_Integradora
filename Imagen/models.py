@@ -11,20 +11,20 @@ class Imagen(models.Model):
     title=models.CharField(max_length=100)
     pathImage=models.CharField(max_length=400)
     date_upload = models.DateTimeField(auto_now_add=True)
-    description=models.TextField(max_length=4000)
+    description=models.TextField(max_length=4000,default='')
     status=models.CharField(max_length=1)
 
     class Meta:
         ordering = ('title',)
 
     def __str__(self):
-        """Return title and username."""
-        return '{} by @{}'.format(self.title, self.user.username,
-        self.pathImage,self.description,self.status)
+        return '{} by @{}'.format(self.title, self.user.username,self.description,
+        self.pathImage,self.status)
 
-    # def save(self, *args, **kwargs):
-    #     self.title = slugify(self.title)
-    #     super(Imagen, self).save(*args, **kwargs)
+# self.description
+    def save(self, *args, **kwargs):
+        self.title = slugify(self.title)
+        super(Imagen, self).save(*args, **kwargs)
 
 """IdImagen(PK)
 idMedico(FK)
