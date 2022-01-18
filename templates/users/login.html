@@ -4,9 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!------ Include the above in your HEAD tag ---------->
-    <!-- <link rel="stylesheet" href="../../css/stylelogin.css"> -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
         id="bootstrap-css">
     {% load bootstrap4 %}
@@ -27,21 +24,14 @@
             </div>
 
             <!-- Login Form -->
-            <form>
+            <!-- method="POST" -->
+            <form action="{% url 'Imagen:cargarImagen' %}">
                 <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
                 <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-                <!-- <a onclick="window.location = '../cargaImagen/cargaImagen.html'" target="_new" href="#"> -->
-                <!-- <input type="submit" class="fadeIn fourth" value="Log In"> -->
-                <!-- <button type="submit" class="btn btn-primary">Iniciar Sesion</button> -->
-                <!-- </a> -->
-                <!-- <button class="btn btn-lg btn-primary btn-block" href="{% url 'cargarImagen' %}" type="submit">Iniciar
-                    Sesion</button> -->
-                <a class="nav-link btn btn-lg btn-primary btn-block" type="submit"
-                    href="{% url 'cargarImagen' %}">Iniciar Sesion</a>
 
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesion</button>
             </form>
 
-            <!-- Remind Passowrd -->
             <div id="formFooter">
                 <a class="underlineHover" href="#">Olvide la contrasenia</a>
             </div>

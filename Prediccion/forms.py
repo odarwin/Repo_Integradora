@@ -8,9 +8,9 @@ from django.contrib.auth.models import User
 from Prediccion.models import Prediccion
 
 class PrediccionForm(forms.ModelForm):
-    title=forms.CharField(max_length=100)
+    title=forms.CharField(max_length=100,widget=forms.TextInput())
     resultado=forms.CharField(max_length=4000,widget=forms.Textarea)
 
     class Meta:
-        Model:Prediccion
-        fields=('user', 'profile', 'title', 'resultado')
+        model=Prediccion
+        fields=('title', 'resultado')

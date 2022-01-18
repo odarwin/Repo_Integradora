@@ -2,22 +2,13 @@ from django.urls import path
 
 # Views
 from Prediccion import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    
     path(
-        route='Resultado',
-        view=views.MostrarImagen,
-        name='Resultado'
+        route='guardarPrediccion',
+        view=views.guardarPrediccion,
+        name='guardarPrediccion'
     ),
-    path(
-        route='ResultadoImagen',
-        view=views.MostrarResultado,
-        name='ResultadoImagen'
-    ),
-    path(
-        route='Comentario',
-        view=views.MostrarComentario,
-        name='Comentario'
-    ),
-
 ]

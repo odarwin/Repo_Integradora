@@ -9,7 +9,9 @@
     <!-- <link rel="stylesheet" href="../../css/style_cargar.css"> -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
         id="bootstrap-css" />
-    {% load bootstrap4 %} {% bootstrap_css %} {% load static %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style_cargar.css' %}" />
 </head>
 
@@ -23,22 +25,29 @@
                 <!-- <img src="../../images/cerebro.png" id="icon" alt="User Icon" /> -->
                 <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
             </div>
-            <form>
-                {% if user.is_authenticated %}
-                <label for="">Seleccionar un archivo desde el ordenador</label>
+            <form method="POST" action="{% url 'Imagen:guardarImagen'%}">
+                <!-- {% if user.is_authenticated %} -->
+                <input required type="text" id="titulo" class="fadeIn second" name="titulo"
+                    placeholder="Ingrese el nombre del paciente">
+
+                <label for="">Seleccionar la imagen desde el ordenador</label>
                 <br />
                 <form>
                     {% csrf_token %}
-                    <input type="hidden" name="csrfmiddlewaretoken" value="Sdf67Ghbsdf786afdsdf">
-                    <input type="file" id="rutaImagen" name="rutaImagen" />
+                    <!-- <input type="hidden" name="csrfmiddlewaretoken" value="Sdf67Ghbsdf786afdsdf"> -->
+                    <input required type="file" class="custom-file-input" id="nombreImagen" name="rutaImagen" />
+                    <label class="custom-file-label" for="nombreImagen">Choose file</label>
+
                     <br />
                     <br />
-                    <a type="button" id="btnDiagnosticar" name="subir-imagen" class="mb-3 btn btn-primary"> Diagnosticar
-                        Imagen
+                    <!-- <a type="submit" id="btnDiagnsosticar" name="subir-imagen" class="mb-3  btn btn-primary"> -->
                     </a>
+                    <button class="btn btn-lg btn-primary btn-block" name="subir-imagen"
+                        style="max-width: 30%; margin-left: 35%;" type="submit">Diagnosticar
+                        Imagen</button>
 
                 </form>
-                {% endif %}
+                <!-- {% endif %} -->
 
             </form>
 
@@ -47,9 +56,7 @@
 
 </body>
 {% bootstrap_javascript jquery='full' %}
-<!-- <script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script> -->
-<!-- // js/project/cargarImagen.js' %} -->
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script>
-<script type="text/javascript" src="{% static 'js/project/cargarImagen1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/project/cargarImagen.js' %}"></script>
 
 </html>

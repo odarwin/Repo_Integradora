@@ -43,44 +43,49 @@
             <form>
                 <div class="container">
                     <div class="row">
-                        {% for img in Imagen %}
-
-                        <div class="form-group col-6 d-flex flex-column">
-                            <div class="align-self-start">
-                                <label for="nombreImagen">Nombre de la imagen:</label>
-                            </div>
-                            <div class="">
-                                <input type="text" id="imagenPaciente" name="Imagen de Paciente" value="3006.nii.gz"
-                                    readonly />
-                            </div>
-
-                            <div class="form-group" id="resultado">
+                        <!-- {% if user.is_authenticated %} -->
+                        <form action="">
+                            <div class="form-group col-6 d-flex flex-column">
+                                <div class="align-self-start">
+                                    <label for="nombreImagen">Nombre de la imagen:</label>
+                                </div>
                                 <div class="">
-                                    <label for="Resultado">Resultado:
-                                    </label>
+                                    <input type="text" id="imagenPaciente" name="Imagen de Paciente"
+                                        value="{{imagen.title}}" readonly />
                                 </div>
-                                <div class="form-group">
-                                    <textarea name="resultados" rows="2" cols="40"
-                                        readonly>{{img.description}}</textarea>
+
+                                <div class="form-group" id="resultado">
+                                    <div class="">
+                                        <label for="Resultado">Resultado:
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="resultados" rows="2" cols="40"
+                                            readonly>{{imagen.description}}</textarea>
+                                    </div>
+                                    <ul>
+
+                                    </ul>
+                                </div>
+                                <div class="form-group d-flex justify-content-around" id="btnAceptar">
+                                    <div>
+                                        <a href="#ModalAceptar" role="button"
+                                            class="btn btn-success btn-large btn-primary" data-toggle="modal">Aceptar
+                                            Pronóstico</a>
+                                    </div>
+                                    <div>
+                                        <a href="#ModalRechazar" role="button"
+                                            class="btn btn-danger btn-large btn-primary" data-toggle="modal">Rechazar
+                                            Pronóstico</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group d-flex justify-content-around" id="btnAceptar">
-                                <div>
-                                    <a href="#ModalAceptar" role="button" class="btn btn-success btn-large btn-primary"
-                                        data-toggle="modal">Aceptar Pronóstico</a>
-                                </div>
-                                <div>
-                                    <a href="#ModalRechazar" role="button" class="btn btn-danger btn-large btn-primary"
-                                        data-toggle="modal">Rechazar Pronóstico</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
+                        </form>
+                        <!-- {% endif %} -->
+
                         <!-- aqui va el graficado -->
                         <div class="form-group col-6">
                             <div class="col-11 papaya" data-params="params" style="height: 100%">
-                                <!-- <div class="papaya" data-params="params"></div> -->
-                                <!-- <div class="papaya" data-params="params"></div> -->
                             </div>
                         </div>
                     </div>
@@ -102,24 +107,29 @@
         <div id="ModalAceptar" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                        <h4 class="modal-title">Resultado</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Seguro que quiere aceptar el pronostico?</p>
-                        <!-- <p class="text-warning"><small>Si lo borras, nunca podrás recuperarlo.</small></p> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-toggle="modal" href="#modalExito">
-                            Si
-                        </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            No
-                        </button>
-                    </div>
+                    <form method="POST" action="{% url 'Prediccion:guardarPrediccion' %}">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title">Resultado</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Seguro que quiere aceptar el pronostico?</p>
+                            <!-- <p class="text-warning"><small>Si lo borras, nunca podrás recuperarlo.</small></p> -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                onclick="location.href='{% url 'Prediccion:guardarPrediccion' %}?name=aceptaP'"
+                                class="btn btn-success" data-toggle="modal" href="#modalExito">
+                                Si
+                            </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                No
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
