@@ -17,8 +17,8 @@ class Profile(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     def __str__(self):
         """Return username."""
-        return self.user.username
+        return self.user.username,self.rol
 
     def nombreCompleto(self):
         txt="{0} {1} tiene un rol de {2}"
-        return txt.format(self.firstName,txt.self.lastName,self.rol)
+        return txt.format(self.firstName,self.lastName,self.rol)

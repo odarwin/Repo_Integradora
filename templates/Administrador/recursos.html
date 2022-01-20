@@ -1,0 +1,65 @@
+{% extends "Administrador/base.html" %}
+
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% load static %}
+{% block content %}
+<!-- {% bootstrap_javascript jquery='full' %} -->
+
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Recursos de la aplicacion</h4>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="white-box">
+                <h3 class="box-title">Tabla de Recursos</h3>
+                <!-- <p class="text-muted">Add class <code>.table</code></p> -->
+                <div class="table-responsive">
+                    <table class="table" name="tabla_usuarios">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col-1">#</th>
+                                <th class="col-2">User</th>
+                                <th class="col-2">Title</th>
+                                <th class="col-3">Path Image</th>
+                                <th class="col-2">Results</th>
+                                <th class="col-1">date_upload</th>
+                                <th class="col-1">status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for img in imagenes %}
+                            <tr class="d-flex">
+                                <td class="col-1">{{img.id}}</td>
+                                <td class="col-1">{{img.user}}</td>
+                                <td class="col-2">{{img.title}}</td>
+                                <td class="col-3">{{img.pathImage}}</td>
+                                <td class="col-1">{{img.date_upload}}</td>
+                                <td class="col-1">{{img.description}}</td>
+                                <td class="col-1">{{img.status}}</td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <ul class="pagination pagination-lg pager" id="developer_page"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer text-center"> 2022 © Oscar Guaman y Jocellyn Luna
+</footer>
+
+{% endblock %}

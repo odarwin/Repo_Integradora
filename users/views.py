@@ -25,6 +25,11 @@ class LoginView(auth_views.LoginView):
     """Login view."""
     template_name = 'users/login.html'
 
+    # def get_context_data(self,**kwargs):
+    #     context=super().get_context_data(**kwargs)
+    #     print(context)
+    #     return context
+
 
 class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
     """Logout view."""

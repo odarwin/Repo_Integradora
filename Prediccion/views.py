@@ -6,24 +6,30 @@ from django.http import HttpResponse
 from Imagen.models import Imagen
 from Prediccion.models import Prediccion
 from Prediccion.forms import PrediccionForm
+from django.views.decorators.csrf import csrf_exempt
 
-@login_required
+@csrf_exempt
 def guardarPrediccion(request):
     print("guardarPrediccion")
-    imagen=Imagen.objects.order_by('-pk')[:1]
-    print(imagen.pk)
+    # imagen=Imagen.objects.order_by('-pk')[:1]
     # enviarIdImagen('Prediccion:enviarId', id=)
-    # if request.method == 'POST':
-    if request.GET.get('name'):
+    if request.method == 'POST':
+    # if request.GET.get('name'):
         resultado={
-            'image':imagen.pk,
-            'title':imagen.title,
-            'description':imagen.description
+            # 'image':request.id,
+            'image':request.GET.get('id'),
+            'title':request.GET.get('Imagen de Paciente'),
+            'description':request.GET.get('resultados'),
+            'state':'A'
         }
+        print(resultado)
         form = PrediccionForm(resultado)
+        # print(form)
         if form.is_valid():
             form.save()
             return redirect('home')
+        else:
+            return HttpResponse(status=400)
     else:
         return HttpResponse(status=405)
     return HttpResponse(status=500)

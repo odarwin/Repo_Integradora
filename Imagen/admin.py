@@ -6,6 +6,7 @@ class ImagenAdmin(admin.ModelAdmin):
     list_display = ('pk', 'user', 'title', 'pathImage','description')
     search_fields=(('title'),)
     list_filter=('title','description')
+    
     def get_form(self, request, obj=None, **kwargs):   
         form = super(ImagenAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['user'].initial = request.user

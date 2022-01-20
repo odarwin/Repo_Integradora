@@ -22,12 +22,13 @@
             <div class="fadeIn first">
                 <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
             </div>
-
             <!-- Login Form -->
             <!-- method="POST" -->
-            <form action="{% url 'Imagen:cargarImagen' %}">
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
+            <form method="POST" action="{% url 'Imagen:cargarImagen' %}">
+                <input type="text" id="login" class="fadeIn second form-control"" name=" login" placeholder="login"
+                    required autofocus>
+                <input type="text" id="password" class="fadeIn third form-control" name="password"
+                    placeholder="password" required>
 
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesion</button>
             </form>
@@ -38,6 +39,20 @@
             <div>
                 <a class="nav-link" href="{% url 'users:register' %}">Registrarse</a>
             </div>
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
 
         </div>
     </div>

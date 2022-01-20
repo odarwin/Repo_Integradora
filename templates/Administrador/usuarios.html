@@ -1,0 +1,52 @@
+{% extends "Administrador/base.html" %}
+
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% load static %}
+{% block content %}
+<!-- {% bootstrap_javascript jquery='full' %} -->
+
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Usuarios</h4>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Tabla de Usuarios</h3>
+                <!-- <p class="text-muted">Add class <code>.table</code></p> -->
+                <div class="table-responsive">
+                    <table class="table text-nowrap" name="tabla_usuarios">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">#</th>
+                                <th class="border-top-0">Nombre</th>
+                                <th class="border-top-0">Apellido</th>
+                                <th class="border-top-0">Usuario</th>
+                                <th class="border-top-0">Rol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in usuarios %}
+                            <tr>
+                                <td>{{usuario.Profile.firstName}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer text-center"> 2022 © Oscar Guaman y Jocellyn Luna
+</footer>
+
+{% endblock %}

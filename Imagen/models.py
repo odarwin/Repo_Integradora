@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 class Imagen(models.Model):
+    
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     profile = models.ForeignKey('users.Profile', on_delete=models.PROTECT)
     title=models.CharField(max_length=100)
@@ -13,13 +14,11 @@ class Imagen(models.Model):
     date_upload = models.DateTimeField(auto_now_add=True)
     description=models.TextField(max_length=4000,default='')
     status=models.CharField(max_length=1)
-
     class Meta:
         ordering = ('title',)
 
     def __str__(self):
-        return '{} by @{}'.format(self.title, self.user.username,self.description,
-        self.pathImage,self.status)
+        return '{} by @{}'.format(self.title,self.description,self.pathImage,self.status)
 
 # self.description
     def save(self, *args, **kwargs):
