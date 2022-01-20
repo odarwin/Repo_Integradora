@@ -16,5 +16,5 @@ class CreateImagenForm(forms.ModelForm):
     class Meta:
         # user = User.objects.create_user(data['username'],data['email'],data['password'])
         model=Imagen
-        fields=('user','profile','title','pathImage','status','description')
+        fields=('user','profile','title','pathImage','status','description',)
 

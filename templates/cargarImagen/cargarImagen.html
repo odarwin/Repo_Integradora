@@ -25,17 +25,18 @@
                 <!-- <img src="../../images/cerebro.png" id="icon" alt="User Icon" /> -->
                 <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
             </div>
-            <form method="POST" action="{% url 'Imagen:guardarImagen'%}">
+            <form method="POST" action="{% url 'Imagen:cargarImagen'%}" enctype ="multipart/form-data">
                 <!-- {% if user.is_authenticated %} -->
                 <input required type="text" id="titulo" class="fadeIn second" name="titulo"
                     placeholder="Ingrese el nombre del paciente">
 
                 <label for="">Seleccionar la imagen desde el ordenador</label>
                 <br />
-                <form>
+                
                     {% csrf_token %}
+                    {{form}}
                     <!-- <input type="hidden" name="csrfmiddlewaretoken" value="Sdf67Ghbsdf786afdsdf"> -->
-                    <input required type="file" class="custom-file-input" id="nombreImagen" name="rutaImagen" />
+                    <input required type="file" class="custom-file-input" id="nombreImagen" name="image" />
                     <label class="custom-file-label" for="nombreImagen">Choose file</label>
 
                     <br />
@@ -46,7 +47,6 @@
                         style="max-width: 30%; margin-left: 35%;" type="submit">Diagnosticar
                         Imagen</button>
 
-                </form>
                 <!-- {% endif %} -->
 
             </form>
