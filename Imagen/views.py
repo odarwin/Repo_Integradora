@@ -38,6 +38,9 @@ def guardarImagen(request):
             imagen=Imagen.objects.order_by('-pk')[:1] 
             print(imagen)
             return render(request, 'resultado/resultado.html',{'imagen':imagen})
+        else:
+            print("Error al guardar la Imagen")
+            return render(request,'cargarImagen/cargarImagen.html')  
     return render(request,'cargarImagen/cargarImagen.html')  
 #og
 #----------------------------------------ESEMBLE MODEL------------------------------------

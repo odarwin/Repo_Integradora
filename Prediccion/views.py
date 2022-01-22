@@ -12,14 +12,13 @@ from django.views.decorators.csrf import csrf_exempt
 def guardarPrediccion(request):
     print("guardarPrediccion")
     print(request)
-    # imagen=Imagen.objects.order_by('-pk')[:1]
     if request.method == 'POST':
     # if request.GET.get('name'):
         resultado={
             # 'image':request.id,
-            'image':request.GET.get('id'),
-            'title':request.GET.get('Imagen de Paciente',''),
-            'description':request.GET.get('resultados',''),
+            'image':request.POST.get('id'),
+            'title':request.POST.get('Imagen de Paciente',''),
+            'resultado':request.POST.get('resultados',''),
             'state':'A'
         }
         print(resultado)
@@ -29,7 +28,7 @@ def guardarPrediccion(request):
             form.save()
             return redirect('home')
         else:
-            return HttpResponse("Fallo en el formulario de prediccion")
+            form=PrediccionForm()
     else:
         return HttpResponse(status=405)
     return HttpResponse(status=500)

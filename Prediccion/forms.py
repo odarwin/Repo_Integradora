@@ -14,4 +14,4 @@ class PrediccionForm(forms.ModelForm):
     state=forms.CharField(max_length=1)
     class Meta:
         model=Prediccion
-        fields=('image','title', 'resultado',)   
+        fields=('image','title', 'resultado','state',)   

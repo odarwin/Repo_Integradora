@@ -11,7 +11,10 @@ from django.contrib.auth.models import User
 def cargarUsuarios(request):
     usuarios=request.user.profile
     print(usuarios)
-    # return render(request, 'Administrador/usuarios.html',{'usuarios':usuarios})
+    usuarios_={
+        'usuarios':usuarios
+    }
+    return render(request, 'Administrador/usuarios.html',usuarios_)
 
 
 def cargarRecursos(request):
