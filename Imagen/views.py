@@ -6,31 +6,32 @@ from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from Imagen.forms import CreateImagenForm
 from django.views.decorators.csrf import csrf_exempt
-
-
-
 from Imagen.models import Imagen
+
 @csrf_exempt
 def cargarPantallaImagen(request):
-    return render(request,'cargarImagen/cargarImagen.html',{})
+    return render(request,'cargarImagen/cargarImagen.html')
 
 @csrf_exempt
 def guardarImagen(request):
     print("llegando")
     ruta = "C:\\Users\\Darwin\\Documents\\PROYECTOS\\Integradora\\DeteccionPark\\Papaya\\images\\"
     if request.method=='POST':
+        print("POST")
         path = ''
         for filename, file in request.FILES.items():
             path = 'nii\\' + request.FILES[filename].name
-            default_storage.save( path, file)
+            default_storage.save( path, file) #og
         imagen={
             'user': request.user.id,
             'profile': request.user.id,
             'title':request.POST.get('titulo',''),
             'pathImage': path,
             'status':'A',
-            'description': ProcesarPrediccion(path),
+            'description': ProcesarPrediccion(path), #og
+            # 'description':'Descripcion Prueba',
         }
+        print(imagen)
         form = CreateImagenForm(imagen)
         if form.is_valid() :
             form.save()
@@ -38,8 +39,7 @@ def guardarImagen(request):
             print(imagen)
             return render(request, 'resultado/resultado.html',{'imagen':imagen})
     return render(request,'cargarImagen/cargarImagen.html')  
-
-
+#og
 #----------------------------------------ESEMBLE MODEL------------------------------------
 import numpy as np
 import SimpleITK as sitk

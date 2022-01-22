@@ -12,4 +12,10 @@ urlpatterns = [
         view=views.cargarPantallaImagen,
         name='cargarImagen'
     ),
+    path(
+        route='guardarImagen',
+        view=views.guardarImagen,
+        name='guardarImagen'
+
+    ),
 ]
