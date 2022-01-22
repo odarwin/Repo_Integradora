@@ -1,0 +1,15 @@
+Prediccion/__pycache__/*
+Prediccion/migrations/__pycache__/*
+
+users/__pycache__/*
+users/migrations/__pycache__/*
+
+DeteccionPark/__pycache__/*
+
+Imagen/__pycache__/*
+Imagen/migrations/__pycache__/*
+
+aplicacionAdmin/__pycache__/*
+aplicacionAdmin/migrations/__pycache__/*
+
+esemble_model.h5
