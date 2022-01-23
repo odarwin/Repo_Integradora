@@ -7,20 +7,17 @@ from django.core.files.storage import default_storage
 from Imagen.forms import CreateImagenForm
 from django.views.decorators.csrf import csrf_exempt
 from Imagen.models import Imagen
+from django.conf import settings
 
 @csrf_exempt
-def cargarPantallaImagen(request):
-    return render(request,'cargarImagen/cargarImagen.html')
-
-@csrf_exempt
-def guardarImagen(request):
+def cargarImagen(request):
     print("llegando")
-    ruta = "C:\\Users\\Darwin\\Documents\\PROYECTOS\\Integradora\\DeteccionPark\\Papaya\\images\\"
     if request.method=='POST':
-        print("POST")
         path = ''
+        print(request.FILES)
         for filename, file in request.FILES.items():
             path = 'nii\\' + request.FILES[filename].name
+            print("saved as ", path)
             default_storage.save( path, file) #og
         imagen={
             'user': request.user.id,

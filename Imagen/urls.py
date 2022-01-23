@@ -9,13 +9,7 @@ from Imagen import views
 urlpatterns = [
  path(
         route='cargarImagen',
-        view=views.cargarPantallaImagen,
+        view=views.cargarImagen,
         name='cargarImagen'
-    ),
-    path(
-        route='guardarImagen',
-        view=views.guardarImagen,
-        name='guardarImagen'
-
     ),
 ]

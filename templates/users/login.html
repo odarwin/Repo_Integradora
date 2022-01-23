@@ -28,12 +28,12 @@
 
 				<!-- Login Form -->
 				<!-- method="POST" -->
-				<form action="{% url 'Imagen:cargarImagen' %}">
+				<form method="POST" action="{% url 'users:imagenes' %}">
 					<input
 						type="text"
 						id="login"
 						class="fadeIn second"
-						name="login"
+						name="user"
 						placeholder="usuario"
 					/>
 					<input
@@ -43,7 +43,7 @@
 						name="password"
 						placeholder="contraseña"
 					/>
-
+					{% csrf_token %}
 					<button class="btn btn-lg btn-primary btn-block" type="submit">
 						Iniciar Sesión
 					</button>

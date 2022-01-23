@@ -1,13 +1,30 @@
 from django.shortcuts import render
-
 from django.views.generic import FormView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views 
-
-# Forms
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.hashers import *
 from users.forms import SignupForm
+from users.forms import UserLoginForm
+from users.models import UserLogin
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
+def imagenes(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST or None)
+        if form.is_valid():
+            username = request.POST.get('user','')
+            password = request.POST.get('password','')
+            user = authenticate(username=username, password=password)
+            if user:
+                if user.is_active:
+                    auth_login(request, user)
+                    return render(request,'cargarImagen/cargarImagen.html')
+            else:
+                error = 'Invalid username or password.'
 
 class SignupView(FormView):
     """Users sign up view."""

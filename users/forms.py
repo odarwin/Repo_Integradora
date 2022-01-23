@@ -6,6 +6,15 @@ from django import forms
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
+from users.models import UserLogin
+
+
+class UserLoginForm(forms.Form):
+    user = forms.CharField(max_length = 100)
+    password = forms.CharField(max_length = 100)
+    class Meta:
+        model=UserLogin
+        fields=('user', 'password')
 
 
 class SignupForm(forms.Form):
