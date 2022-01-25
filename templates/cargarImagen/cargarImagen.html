@@ -1,62 +1,115 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<!------ Include the above in your HEAD tag ---------->
+		<!-- <link rel="stylesheet" href="../../css/style_cargar.css"> -->
+		<link
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			rel="stylesheet"
+			id="bootstrap-css"
+		/>
+		{% load bootstrap4 %} {% bootstrap_css %} {% load static %}
+		<link rel="stylesheet" href="{% static 'css/style_cargar.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/papaya.css' %}" />
+		<script
+			type="text/javascript"
+			src="{% static 'js/build/papaya.js' %}"
+		></script>
+	</head>
 
-    <!------ Include the above in your HEAD tag ---------->
-    <!-- <link rel="stylesheet" href="../../css/style_cargar.css"> -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
-        id="bootstrap-css" />
-    {% load bootstrap4 %}
-    {% bootstrap_css %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style_cargar.css' %}" />
-</head>
+	<body>
+		<div class="wrapper fadeInDown">
+			<div id="formContent">
+				<div style="background-color: #1190cf; color: white">
+					<p>Hola Médico</p>
+				</div>
+				<div class="fadeIn first">
+					<!-- <img src="../../images/cerebro.png" id="icon" alt="User Icon" /> -->
+					<img
+						src="{% static 'images/cerebro.png' %}"
+						id="icon"
+						alt="User Icon"
+					/>
+				</div>
 
-<body>
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <div style="background-color: #1190cf; color: white">
-                <p>Hola Medico</p>
-            </div>
-            <div class="fadeIn first">
-                <!-- <img src="../../images/cerebro.png" id="icon" alt="User Icon" /> -->
-                <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
-            </div>
-            <form method="POST" action="{% url 'Imagen:cargarImagen'%}" enctype ="multipart/form-data">
-                <!-- {% if user.is_authenticated %} -->
-                <input required type="text" id="titulo" class="fadeIn second" name="titulo"
-                    placeholder="Ingrese el nombre del paciente">
+				<div class="container">
+					<div class="row pb-3">
+						<form
+							method="POST"
+							class="col-6 d-flex flex-column d-flex justify-content-between"
+							action="{% url 'Imagen:cargarImagen'%}"
+							enctype="multipart/form-data"
+							onSubmit="load()"
+						>
+							<!-- {% if user.is_authenticated %} -->
 
-                <label for="">Seleccionar la imagen desde el ordenador</label>
-                <br />
-                
-                    {% csrf_token %}
-                    {{form}}
-                    <!-- <input type="hidden" name="csrfmiddlewaretoken" value="Sdf67Ghbsdf786afdsdf"> -->
-                    <input required type="file" class="custom-file-input" id="nombreImagen" name="image" />
-                    <label class="custom-file-label" for="nombreImagen">Choose file</label>
+							{% csrf_token %} {{form}}
+							<!-- <input type="hidden" name="csrfmiddlewaretoken" value="Sdf67Ghbsdf786afdsdf"> -->
+							<div>
+								<input
+									required
+									type="file"
+									class="custom-file-input"
+									id="nombreImagen"
+									name="image"
+									onchange="loadMRI()"
+								/>
+								<label class="custom-file-label" for="nombreImagen"
+									>Escoge un archivo .nii</label
+								>
 
-                    <br />
-                    <br />
-                    <!-- <a type="submit" id="btnDiagnsosticar" name="subir-imagen" class="mb-3  btn btn-primary"> -->
-                    </a>
-                    <button class="btn btn-lg btn-primary btn-block" name="subir-imagen"
-                        style="max-width: 30%; margin-left: 35%;" type="submit">Diagnosticar
-                        Imagen</button>
+								<input
+									required
+									type="text"
+									id="titulo"
+									class="fadeIn second"
+									name="titulo"
+									placeholder="Ingrese el nombre del paciente"
+								/>
+							</div>
+							<div class="row">
+								<div class="col-2"></div>
+								<div class="col-8">
+									<button
+										class="btn btn-lg btn-primary btn-block"
+										name="subir-imagen"
+										on
+										type="submit"
+									>
+										Diagnosticar Imagen
+									</button>
+								</div>
+								<div class="col-2">
+									<img
+										src="{% static 'images/loading.gif' %}"
+										id="loading"
+										alt="loading"
+										style="visibility: hidden"
+										width="80%"
+									/>
+								</div>
+							</div>
+							<!-- {% endif %} -->
+						</form>
 
-                <!-- {% endif %} -->
-
-            </form>
-
-        </div>
-    </div>
-
-</body>
-{% bootstrap_javascript jquery='full' %}
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"> </script>
-<script type="text/javascript" src="{% static 'js/project/cargarImagen.js' %}"></script>
-
+						<div class="col-6" id="mriContainer">
+							<div class="papaya" data-params="params"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	{% bootstrap_javascript jquery='full' %}
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+	<script
+		type="text/javascript"
+		src="{% static 'js/project/cargarImagen.js' %}"
+	></script>
 </html>

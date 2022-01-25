@@ -1,4 +1,3 @@
-var PAPAYA_BUILD_NUM = "1457", papayaLoadableImages = [{ name: "3023", nicename: "3023", url: "data/3023.nii.gz" }];
 (function (a, b) {
     function e(a) { var b = a.length, d = N.type(a); return N.isWindow(a) ? !1 : 1 === a.nodeType && b ? !0 : "array" === d || "function" !== d && (0 === b || "number" === typeof b && 0 < b && b - 1 in a) } function d(a) { var b = Jc[a] = {}; N.each(a.match(bc) || [], function (a, d) { b[d] = !0 }); return b } function f(a, d, f, h) {
         if (N.acceptData(a)) {

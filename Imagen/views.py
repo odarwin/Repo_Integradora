@@ -28,12 +28,10 @@ def cargarImagen(request):
             'description': ProcesarPrediccion(path), #og
             # 'description':'Descripcion Prueba',
         }
-        print(imagen)
         form = CreateImagenForm(imagen)
         if form.is_valid() :
             form.save()
             imagen=Imagen.objects.order_by('-pk')[:1] 
-            print(imagen)
             return render(request, 'resultado/resultado.html',{'imagen':imagen})
         else:
             print("Error al guardar la Imagen")
