@@ -49,7 +49,8 @@ from deepbrain import Extractor
 import subprocess
 import os
 # from django.conf import settings
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 #from keras.models import load_model
 from keras.preprocessing import image
