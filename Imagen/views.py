@@ -42,7 +42,6 @@ def cargarImagen(request):
 #----------------------------------------PREPROCESS---------------------------------------
 
 import ants
-import dicom2nifti
 import intensity_normalization
 import nibabel as nib
 import numpy as np
