@@ -36,7 +36,11 @@
             </div>
 
             <!-- <div class="row justify-content-center align-items-center"> -->
-            <form method="POST" action="{}">
+            <form method="POST" action="{% url 'Prediccion:guardarPrediccion'%}">
+                {% csrf_token %}
+                <input style="display : none" name="title" id="title" value={{title}}/>
+                <input style="display : none" name="id" id="id" value={{id}}/>
+                <input style="display : none" name="state" id="state" value="R"/>
                 <div class="container" style="display: grid; place-content: center;">
                     <div class="row">
                         {% if user.is_authenticated %}
@@ -45,7 +49,7 @@
 
                                 <label required for="textoComentario" style="color: black;">Ingrese el motivo por el
                                     cual
-                                    acept&oacute;
+                                    rechaz&oacute;
                                     el
                                     diagnostic&oacute; (Obligatorio)</label>
                             </div>
@@ -57,7 +61,7 @@
 
                                 <div class="col -8">
                                     <!-- <a href="#" role="button" class="btn btn-submit btn-large btn-primary">Enviar</a> -->
-                                    <button type="submit" class="btn btn-submit btn-large btn-primary">
+                                    <button type="submit" onclick="pop()" class="btn btn-submit btn-large btn-primary">
                                         Enviar
                                     </button>
                                 </div>
@@ -76,6 +80,11 @@
 </body>
 {% bootstrap_javascript jquery='full' %}
 
+<script>
+    function pop() {
+      alert("Los cambios fueron guardados");
+    }
+</script>
 <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
