@@ -31,9 +31,7 @@ def guardarPrediccion(request):
             'resultado':'',
             'state':'A'
         }
-        print(resultado)
         form = PrediccionForm(resultado)
-        # print(form)
         if form.is_valid():
             form.save()
             # return redirect('Imagen:cargarImagen')
@@ -44,6 +42,4 @@ def guardarPrediccion(request):
 
         else:
             form=PrediccionForm()
-    else:
-        return HttpResponse(status=405)
-    return HttpResponse(status=500)
+        return redirect('Imagen:cargarImagen')
