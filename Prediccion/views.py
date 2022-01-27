@@ -7,11 +7,20 @@ from Imagen.models import Imagen
 from Prediccion.models import Prediccion
 from Prediccion.forms import PrediccionForm
 from django.views.decorators.csrf import csrf_exempt
-
+@csrf_exempt
+def verResultadoAprobar(request):
+    print("verResultadoAprobar")
+    print(request.GET.get('name'))
+    if(request.GET.get('name')=="aceptaR"):
+        return render(request,'comentario/comentario_Aceptar.html')
+    elif (request.GET.get('name')=="rechazaR"):
+        return render(request,'comentario/comentario_Rechazar.html')
+    return HttpResponse("mala hp")
+    
 @csrf_exempt
 def guardarPrediccion(request):
     print("guardarPrediccion")
-    print(request)
+    # print(request)
     if request.method == 'POST':
     # if request.GET.get('name'):
         resultado={
@@ -26,7 +35,8 @@ def guardarPrediccion(request):
         # print(form)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            # return redirect('Imagen:cargarImagen')
+            return redirect('Prediccion:verResultadoAprobar')
         else:
             form=PrediccionForm()
     else:

@@ -11,4 +11,11 @@ urlpatterns = [
         view=views.guardarPrediccion,
         name='guardarPrediccion'
     ),
+    path(
+        route='prediccion/verResultadoAprobar',
+        view=views.verResultadoAprobar,
+        name='verResultadoAprobar'
+    ),
+    
+
 ]

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!------ Include the above in your HEAD tag ---------->
+    <!-- <link rel="stylesheet" href="../../css/style_cargar.css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style_cargar.css' %}" />
+
+</head>
+
+<body>
+
+
+    <div class="wrapper fadeInDown d-flex justify-content-center align-items-center container">
+        <div id="formContent">
+
+            <div style="background-color:#1190cf ; color: white;">
+                <p>Hola Medico</p>
+            </div>
+            <div class=" fadeIn first" row>
+                <div>
+                    <label for="">Comentarios del diagnóstico</label>
+                </div>
+                <div>
+                    <!-- <img src="../../images/cerebro.png" id="icon" alt="User Icon" /> -->
+                    <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
+                </div>
+            </div>
+
+            <!-- <div class="row justify-content-center align-items-center"> -->
+            <form method="POST" action="{}">
+                <div class="container" style="display: grid; place-content: center;">
+                    <div class="row">
+                        {% if user.is_authenticated %}
+                        <div class="form-group d-flex flex-column">
+                            <div class="align-self-start">
+
+                                <label required for="textoComentario" style="color: black;">Ingrese el motivo por el
+                                    cual
+                                    acept&oacute;
+                                    el
+                                    diagnostic&oacute; (Obligatorio)</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="motivoA" id="textoComentario" rows="5"
+                                    cols="30"></textarea>
+                            </div>
+                            <div class="form-group d-flex justify-content-around" id="btnEnviar">
+
+                                <div class="col -8">
+                                    <!-- <a href="#" role="button" class="btn btn-submit btn-large btn-primary">Enviar</a> -->
+                                    <button type="submit" class="btn btn-submit btn-large btn-primary">
+                                        Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+            </form>
+
+            <!-- </div> -->
+
+
+        </div>
+    </div>
+
+</body>
+{% bootstrap_javascript jquery='full' %}
+
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</html>

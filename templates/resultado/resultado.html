@@ -39,8 +39,10 @@
                 </div>
             </div>
 
-            <form method="POST" action="{% url 'Prediccion:guardarPrediccion' %}">
+            <form method="POST">
+                <!-- action="{% url 'Prediccion:guardarPrediccion' %}" -->
                 <div class="container">
+                    {% csrf_token %}
                     <div class="row">
                         {% if user.is_authenticated %}
                         <div class="form-group col-6 d-flex flex-column">
@@ -63,9 +65,7 @@
                                     <textarea name="resultados" rows="2" cols="40"
                                         readonly>{{img.description}}</textarea>
                                 </div>
-                                <ul>
 
-                                </ul>
                             </div>
                             {% endfor %}
                             <div class="form-group d-flex justify-content-around" id="btnAceptar">
@@ -73,15 +73,23 @@
                                     <!-- <a href="#ModalAceptar" role="button" class="btn btn-success btn-large btn-primary"
                                         data-toggle="modal">Aceptar
                                         Pronóstico</a> -->
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit"
+                                        onclick="location.href='{% url 'Prediccion:guardarPrediccion' %}?name=aceptaR'"
+                                        name=" aceptaR" class="btn btn-success btn-large btn-primary">
                                         Aceptar Pronóstico
                                     </button>
 
                                 </div>
                                 <div>
-                                    <a href="#ModalRechazar" role="button" class="btn btn-danger btn-large btn-primary"
+                                    <!-- <a href="#ModalRechazar" role="button" class="btn btn-danger btn-large btn-primary"
                                         data-toggle="modal">Rechazar
-                                        Pronóstico</a>
+                                        Pronóstico</a> -->
+                                    <button type="submit"
+                                        onclick="location.href='{% url 'Prediccion:verResultadoAprobar' %}?name=rechazaR'"
+                                        name="rechazaR" class="btn btn-danger btn-large btn-primary">
+
+                                        Rechazar Pronóstico
+                                    </button>
                                 </div>
                             </div>
                         </div>
