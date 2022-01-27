@@ -38,9 +38,6 @@
                     <img src="{% static 'images/cerebro.png' %}" id="icon" alt="User Icon" />
                 </div>
             </div>
-
-            <form method="POST">
-                <!-- action="{% url 'Prediccion:guardarPrediccion' %}" -->
                 <div class="container">
                     {% csrf_token %}
                     <div class="row">
@@ -56,7 +53,6 @@
                             </div>
 
                             <div class="form-group" id="resultado">
-                                <input type="hidden" name="id" value={{img.id}}>
                                 <div class="">
                                     <label for="Resultado">Resultado:
                                     </label>
@@ -67,30 +63,25 @@
                                 </div>
 
                             </div>
-                            {% endfor %}
                             <div class="form-group d-flex justify-content-around" id="btnAceptar">
                                 <div>
-                                    <!-- <a href="#ModalAceptar" role="button" class="btn btn-success btn-large btn-primary"
-                                        data-toggle="modal">Aceptar
-                                        Pronóstico</a> -->
-                                    <button type="submit"
-                                        onclick="location.href='{% url 'Prediccion:guardarPrediccion' %}?name=aceptaR'"
-                                        name=" aceptaR" class="btn btn-success btn-large btn-primary">
-                                        Aceptar Pronóstico
-                                    </button>
-
+                                    <a href="{% url 'Prediccion:verResultadoAprobar' %}?name=aceptar&title={{img.title}}&id={{img.id}}">
+                                        <button name=" aceptar" class="btn btn-success btn-large btn-primary">
+                                            Aceptar Pronóstico
+                                        </button>
+                                    </a>
                                 </div>
                                 <div>
                                     <!-- <a href="#ModalRechazar" role="button" class="btn btn-danger btn-large btn-primary"
                                         data-toggle="modal">Rechazar
                                         Pronóstico</a> -->
-                                    <button type="submit"
-                                        onclick="location.href='{% url 'Prediccion:verResultadoAprobar' %}?name=rechazaR'"
-                                        name="rechazaR" class="btn btn-danger btn-large btn-primary">
-
-                                        Rechazar Pronóstico
-                                    </button>
+                                    <a href="{% url 'Prediccion:verResultadoAprobar' %}?name=rechazar&title={{img.title}}&id={{img.id}}">
+                                        <button name=" rechazar" class="btn btn-danger btn-large btn-primary">
+                                            Rechazar Pronóstico
+                                        </button>
+                                    </a>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                         {% endif %}
@@ -104,7 +95,6 @@
                     </div>
                 </div>
         </div>
-        </form>
     </div>
     </div>
 </body>
@@ -113,103 +103,3 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </html>
-
-<!-- modales -->
-<div class="container">
-    <div class="row">
-        <!-- ModalAceptar -->
-        <div id="ModalAceptar" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                        <h4 class="modal-title">Resultado</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Seguro que quiere aceptar el pronostico?</p>
-                        <!-- <p class="text-warning"><small>Si lo borras, nunca podrás recuperarlo.</small></p> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" data-toggle="modal" href="#modalExito">
-                            Si
-                        </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            No
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="ModalRechazar" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            &times;
-                        </button>
-                        <h4 class="modal-title">Resultado</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Seguro que quiere rechazar el pronostico?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-toggle="modal" href="#modalRechazo">
-                            Si
-                        </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            No
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <a class="btn btn-primary" data-toggle="modal" href="#modalExito">Exito</a> -->
-        <div class="modal fade" id="modalExito" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="">
-                            <span>×</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="thank-you-pop">
-                            <img src="{% static 'images/exito.png' %}" alt="" />
-                            <h1>Prediccion Aprobada</h1>
-                            <!-- <p>Your submission is received and we will contact you soon</p>
-                            <h3 class="cupon-pop">Your Id: <span>12345</span></h3> -->
-                            <button type="button" class="btn btn-success">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="modalRechazo" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="">
-                            <span>×</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="thank-you-pop">
-                            <img src="{% static 'images/rechazo.png' %}" alt="" />
-                            <h1>Prediccion Rechazada</h1>
-                            <!-- <p>Your submission is received and we will contact you soon</p>
-                            <h3 class="cupon-pop">Your Id: <span>12345</span></h3> -->
-                            <button type="button" class="btn btn-danger">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
