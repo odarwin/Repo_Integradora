@@ -7,38 +7,33 @@ from Imagen.models import Imagen
 from Prediccion.models import Prediccion
 from Prediccion.forms import PrediccionForm
 from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
 def verResultadoAprobar(request):
-    print("verResultadoAprobar")
-    print(request.GET.get('name'))
-    if(request.GET.get('name')=="aceptaR"):
-        return render(request,'comentario/comentario_Aceptar.html')
-    elif (request.GET.get('name')=="rechazaR"):
-        return render(request,'comentario/comentario_Rechazar.html')
+    if(request.GET.get('name')=="aceptar"):
+        return render(request,'comentario/comentario_Aceptar.html', {'title':request.GET.get('title') , 'id':request.GET.get('id')})
+    elif (request.GET.get('name')=="rechazar"):
+        return render(request,'comentario/comentario_Rechazar.html', {'title':request.GET.get('title') , 'id':request.GET.get('id') })
     return HttpResponse("mala hp")
     
-@csrf_exempt
 def guardarPrediccion(request):
     print("guardarPrediccion")
-    # print(request)
     if request.method == 'POST':
     # if request.GET.get('name'):
+        message = "none"
+        print(request.POST)
+        if request.POST.get('resultados','') != '':
+            message = request.POST.get('resultados','')
         resultado={
-            # 'image':request.id,
-            'image':request.POST.get('id'),
-            'title':request.POST.get('Imagen de Paciente',''),
-            'resultado':request.POST.get('resultados',''),
-            'state':'A'
+            'image':request.POST.get('id')[:-1],
+            'title':request.POST.get('title')[:-1],
+            'resultado': message ,
+            'state':request.POST.get('state')
         }
-        print(resultado)
         form = PrediccionForm(resultado)
-        # print(form)
         if form.is_valid():
             form.save()
-            # return redirect('Imagen:cargarImagen')
-            return redirect('Prediccion:verResultadoAprobar')
+            print("saved")
         else:
             form=PrediccionForm()
-    else:
-        return HttpResponse(status=405)
-    return HttpResponse(status=500)
+        return redirect('Imagen:cargarImagen')
