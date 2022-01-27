@@ -10,7 +10,7 @@ from Imagen.models import Imagen
 
 class PrediccionForm(forms.ModelForm):
     title=forms.CharField(max_length=100,widget=forms.TextInput())
-    resultado=forms.CharField(max_length=4000,widget=forms.Textarea)
+    resultado=forms.CharField(max_length=4000,widget=forms.Textarea,required=False)
     state=forms.CharField(max_length=1)
     class Meta:
         model=Prediccion

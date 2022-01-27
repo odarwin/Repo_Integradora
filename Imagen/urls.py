@@ -12,4 +12,7 @@ urlpatterns = [
         view=views.cargarImagen,
         name='cargarImagen'
     ),
+    
+
+
 ]

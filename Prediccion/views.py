@@ -7,27 +7,28 @@ from Imagen.models import Imagen
 from Prediccion.models import Prediccion
 from Prediccion.forms import PrediccionForm
 from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
-def verResultadoAprobar(request):
-    print("verResultadoAprobar")
-    print(request.GET.get('name'))
-    if(request.GET.get('name')=="aceptaR"):
-        return render(request,'comentario/comentario_Aceptar.html')
-    elif (request.GET.get('name')=="rechazaR"):
-        return render(request,'comentario/comentario_Rechazar.html')
-    return HttpResponse("mala hp")
-    
+def guardarComentario(request):
+    print("guardarComentario")
+    id_=request.POST.get('id','')
+    motivo=request.POST.get('motivoA','')
+    estado=request.POST.get('state','')
+    print(motivo)
+    Prediccion.objects.filter(image=id_).update(description=motivo)
+    Prediccion.objects.filter(image=id_).update(state=estado)
+    return redirect('Imagen:cargarImagen') 
+
 @csrf_exempt
 def guardarPrediccion(request):
     print("guardarPrediccion")
-    # print(request)
-    if request.method == 'POST':
-    # if request.GET.get('name'):
+    print(request)
+    if request.method == 'GET':
         resultado={
             # 'image':request.id,
-            'image':request.POST.get('id'),
-            'title':request.POST.get('Imagen de Paciente',''),
-            'resultado':request.POST.get('resultados',''),
+            'image':request.GET.get('id'),
+            'title':request.GET.get('title',''),
+            'resultado':'',
             'state':'A'
         }
         print(resultado)
@@ -36,7 +37,11 @@ def guardarPrediccion(request):
         if form.is_valid():
             form.save()
             # return redirect('Imagen:cargarImagen')
-            return redirect('Prediccion:verResultadoAprobar')
+            if request.GET.get('name')=="aceptar":
+                return render(request,'comentario/comentario_Aceptar.html',resultado)
+            elif request.GET.get('name')=="rechazar":
+                return render(request,'comentario/comentario_Rechazar.html',resultado)
+
         else:
             form=PrediccionForm()
     else:

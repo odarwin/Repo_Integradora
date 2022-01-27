@@ -36,11 +36,11 @@
             </div>
 
             <!-- <div class="row justify-content-center align-items-center"> -->
-            <form method="POST" action="{% url 'Prediccion:guardarPrediccion'%}">
+            <form method="POST" action="{% url 'Prediccion:guardarComentario'%}">
                 {% csrf_token %}
-                <input style="display : none" name="title" id="title" value={{title}}/>
-                <input style="display : none" name="id" id="id" value={{id}}/>
-                <input style="display : none" name="state" id="state" value="R"/>
+                <input style="display : none" name="title" id="title" value={{title}} />
+                <input style="display : none" name="id" id="id" value={{image}} />
+                <input style="display : none" name="state" id="state" value="R" />
                 <div class="container" style="display: grid; place-content: center;">
                     <div class="row">
                         {% if user.is_authenticated %}
@@ -51,7 +51,7 @@
                                     cual
                                     rechaz&oacute;
                                     el
-                                    diagnostic&oacute; (Obligatorio)</label>
+                                    diagn&oacute;stico (Obligatorio)</label>
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control" name="motivoA" id="textoComentario" rows="5"
@@ -82,7 +82,7 @@
 
 <script>
     function pop() {
-      alert("Los cambios fueron guardados");
+        alert("Los cambios fueron guardados");
     }
 </script>
 <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">

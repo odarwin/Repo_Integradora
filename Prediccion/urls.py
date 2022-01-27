@@ -12,9 +12,9 @@ urlpatterns = [
         name='guardarPrediccion'
     ),
     path(
-        route='prediccion/verResultadoAprobar',
-        view=views.verResultadoAprobar,
-        name='verResultadoAprobar'
+        route='guardarComentario',
+        view=views.guardarComentario,
+        name='guardarComentario'
     ),
     
 
