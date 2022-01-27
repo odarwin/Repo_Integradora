@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views.generic import FormView
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,7 +22,7 @@ def imagenes(request):
             if user:
                 if user.is_active:
                     auth_login(request, user)
-                    return render(request,'cargarImagen/cargarImagen.html')
+                    return redirect('/cargarImagen')
             else:
                 error = 'Invalid username or password.'
 

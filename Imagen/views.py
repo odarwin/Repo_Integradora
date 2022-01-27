@@ -16,7 +16,7 @@ def cargarImagen(request):
         path = ''
         print(request.FILES)
         for filename, file in request.FILES.items():
-            path = 'nii\\' + request.FILES[filename].name
+            path = 'nii/' + request.FILES[filename].name
             print("saved as ", path)
             default_storage.save( path, file) #og
         imagen={
@@ -28,18 +28,93 @@ def cargarImagen(request):
             'description': ProcesarPrediccion(path), #og
             # 'description':'Descripcion Prueba',
         }
-        print(imagen)
         form = CreateImagenForm(imagen)
         if form.is_valid() :
             form.save()
             imagen=Imagen.objects.order_by('-pk')[:1] 
-            print(imagen)
             return render(request, 'resultado/resultado.html',{'imagen':imagen})
         else:
             print("Error al guardar la Imagen")
             return render(request,'cargarImagen/cargarImagen.html')  
     return render(request,'cargarImagen/cargarImagen.html')  
-#og
+
+
+#----------------------------------------PREPROCESS---------------------------------------
+
+import ants
+import intensity_normalization
+import nibabel as nib
+import numpy as np
+from deepbrain import Extractor
+import subprocess
+import os
+# from django.conf import settings
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+#from keras.models import load_model
+from keras.preprocessing import image
+from keras.preprocessing.image import load_img
+
+def denoise_image(path, denoise_path):
+    print('---> denoise_image', path)
+    # mri /code/prototipo_brain/data/6_sag_3d_fspgr_bravo_straight.nii.gz
+    
+    img= ants.image_read(path) # Read nii image and convert it to an ANTs array
+    denoise= ants.denoise_image(img, noise_model='gaussian') 
+    print('---> denoise_image1', path)
+    ants.image_write(denoise,denoise_path) #Write image in a specific path
+    
+def bias_field_correction(path, bias_path):
+    print('---> bias_field_correction', path)
+    img= ants.image_read(path)
+    bias_correction = ants.n4_bias_field_correction(img)
+    print('---> bias_field_correction1', path)
+
+    ants.image_write(bias_correction, bias_path)
+
+def image_registration(path, normalized_path):
+    img = ants.image_read(path)
+    print('---> image_registration', path)
+
+    img_fixed= ants.image_read('image_fixed.nii')   # Image fixed of the registration step
+    mytx = ants.registration(fixed=img_fixed, moving=img, type_of_transform= 'Affine')
+    print(mytx)
+    image_normalized= ants.apply_transforms( fixed=img_fixed, moving = img, transformlist=mytx['fwdtransforms'])
+    print('---> image_registration2', path)
+
+    ants.image_write(image_normalized, normalized_path)
+    
+def brain_extraction(path, brain_path, name):
+    print('---> brain_extraction', path)
+
+    command = subprocess.call('deepbrain-extractor -i '+ path +' -o '+ brain_path, shell = True)
+    print(command)
+    if command == 0 :
+        print("Good")
+     
+    img = ants.image_read(brain_path+'brain.nii')
+    # img = ants.image_read('/code/prototipo_brain/data/'+'brain.nii')
+
+    print('---> brain_extraction1', path)
+
+    ants.image_write(img, brain_path+name)
+    
+def normalize_img(path, normalize_path):
+    print('---> normalize_img', path)
+
+    img = nib.load(path)
+    normalized_image= intensity_normalization.normalize.zscore.zscore_normalize(img, mask=None)
+    print('---> normalize_img1', path)
+
+    nib.save(normalized_image, normalize_path)
+
+def pipeline (path):
+    id = path.split('/')[1]
+    file_path = settings.MEDIA_ROOT + '/nii/'
+    brain_extraction( file_path + id, file_path , "ex_" + id)
+    return file_path + "ex_" + id
+
 #----------------------------------------ESEMBLE MODEL------------------------------------
 import numpy as np
 import SimpleITK as sitk
@@ -67,7 +142,7 @@ num_classes = 1
 model_path = "esemble_model.h5"
 
 def load_model():
-    input_tensor = Input(shape = input_shape)  
+    input_tensor = Input(shape = input_shape)
 
     base_model1=NASNetMobile(input_shape= input_shape,weights='imagenet', include_top=False, input_tensor=input_tensor)
     base_model2=InceptionV3(input_shape= input_shape,weights='imagenet', include_top=False, input_tensor=input_tensor)
@@ -125,6 +200,8 @@ def evaluate_nii(path):
 
 #-----------------------------------PREDICTION-----------------------------------------------
 def ProcesarPrediccion(path):
+    path = pipeline(path)
+    print(path)
     pred = evaluate_nii(settings.MEDIA_ROOT + '\\' + path)
     message = "La imagen es de un paciente que padece {desease:s}.\nEl porcentaje de predicción fue de {pred:.3f}."
     if pred > 0.5:
